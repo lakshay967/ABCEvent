@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ABCEvent/ABCEvent.csproj" />
+  <Project Path="DAL/DAL.csproj" />
+</Solution>
