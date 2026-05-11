@@ -2,6 +2,7 @@
 using DAL.IRepo;
 using DAL.Repo;
 using DAL.Models;
+using ABCEvent.Models;
 namespace ABCEvent.Controllers
 {
     public class UserOpsController : Controller
@@ -24,24 +25,25 @@ namespace ABCEvent.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(UserDetails userDetails)
+        public async Task<IActionResult> Create(User user)
         {
             var res = new UserDetails
             {
-                FirstName = userDetails.FirstName,
-                LastName = userDetails.LastName,
-                EmailId = userDetails.EmailId,
-                Password = userDetails.Password,
-                isActive = userDetails.isActive,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                EmailId = user.EmailId,
+                Password = user.Password,
+                isActive = user.isActive,
             };
             await _userDetails.AddUser(res);
             return RedirectToAction("Index");
         }
+
         [HttpGet]
         public async Task<IActionResult> Edit(int Id)
         {
             var result = await _userDetails.GetUser(Id);
-            var res = new UserDetails
+            var res = new User
             {
                 Id = result.Id,
                 FirstName = result.FirstName,
@@ -54,16 +56,16 @@ namespace ABCEvent.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(UserDetails userDetails)
+        public async Task<IActionResult> Edit(User user)
         {
             var res = new UserDetails
             {
-                Id = userDetails.Id,
-                FirstName = userDetails.FirstName,
-                LastName = userDetails.LastName,
-                EmailId = userDetails.EmailId,
-                Password = userDetails.Password,
-                isActive = userDetails.isActive,
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                EmailId = user.EmailId,
+                Password = user.Password,
+                isActive = user.isActive,
             };
             await _userDetails.EditUser(res);
             return RedirectToAction("Index");
